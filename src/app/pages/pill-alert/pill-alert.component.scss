@@ -1,0 +1,187 @@
+
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.alert-box {
+  background: white;
+  width: 90%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 22px;
+  text-align: center;
+}
+
+.alert-pill {
+  width: 90px;
+  margin-bottom: 20px;
+}
+
+.take-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  width: 100%;
+  background: #4a8df4;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+
+:host.watch-mode .overlay {
+  background: rgba(0, 0, 0, 0.35); 
+  backdrop-filter: blur(2px);
+}
+
+:host.watch-mode .alert-box {
+  width: 85px;
+  padding: 8px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.watch-text {
+  font-size: 11px;
+  margin: 4px 0 8px 0;
+  font-weight: 600;
+}
+:host.watch-mode .alert-pill {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 6px;
+}
+
+:host.watch-mode p {
+  font-size: 10px;
+  margin: 2px 0 6px 0;
+}
+
+:host.watch-mode .take-btn {
+  font-size: 10px;
+  padding: 4px 6px;
+  width: 100%;
+  border-radius: 10px;
+  margin: 3px 0;
+}
+
+:host:not(.watch-mode) .alert-box {
+  max-width: 550px;    
+  padding: 45px 50px;   
+  border-radius: 28px; 
+}
+
+:host:not(.watch-mode) .alert-pill {
+  width: 120px;         
+  margin-bottom: 28px;
+}
+
+:host:not(.watch-mode) h1 {
+  font-size: 30px;      
+  margin-bottom: 12px;
+}
+
+:host:not(.watch-mode) p {
+  font-size: 18px;     
+}
+
+:host:not(.watch-mode) .take-btn {
+  font-size: 20px;      
+  padding: 16px 0;
+  border-radius: 14px;
+  margin-top: 16px;
+}
+
+:host.mobile-mode .overlay {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+}
+
+:host.mobile-mode .alert-box {
+  width: 180px;
+  padding: 14px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
+:host.mobile-mode .alert-pill {
+  width: 55px;
+  height: 55px;
+  margin-bottom: 10px;
+}
+:host.mobile-mode .mobile-text {
+  font-size: 13px;
+  margin: 6px 0 10px 0;
+  font-weight: 600;
+  color: #333;
+}
+
+:host.mobile-mode .take-btn {
+  font-size: 13px;
+  padding: 8px 0;
+  width: 100%;
+  border-radius: 12px;
+  margin: 4px 0;
+}
+
+:host.mobile-mode h1,
+:host.mobile-mode p:not(.mobile-text) {
+  display: none;
+}
+
+
+
+.watch-alert-box {
+  width: 82% !important;
+  max-width: 190px !important;
+  padding: 16px 12px !important;   
+  border-radius: 14px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.watch-alert-box .alert-pill {
+  width: 48px !important;          
+  margin-bottom: 8px !important;
+}
+
+.watch-alert-box .watch-text {
+  font-size: 12px !important;
+  margin-bottom: 10px !important;  
+}
+
+.watch-alert-box .take-btn {
+  width: 100% !important;
+  padding: 10px 0 !important;      
+  margin-top: 8px !important;     
+  font-size: 13px !important;      
+  border-radius: 12px !important;
+}
+
+.watch-alert-box .take-btn + .take-btn {
+  margin-top: 8px !important;      
+}

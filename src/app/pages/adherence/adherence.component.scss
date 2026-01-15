@@ -1,0 +1,255 @@
+.adherence-page {
+  padding-top: 96px;
+  background: #f7fafd;
+}
+
+h3 {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+
+.hero-card {
+  background: #e9f5ea;
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+}
+
+.hero-card.wide {
+  justify-content: flex-start;
+}
+
+.hero-text {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.stats-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.stat-card.large {
+  padding: 36px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  margin-top: 6px;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.stat-card.good { color: #2e7d32; }
+.stat-card.bad  { color: #c62828; }
+
+.week-card {
+  margin-top: 36px;
+}
+
+.week-column {
+  background: #fff;
+  border-radius: 28px;
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.week-days {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+
+  color: #fff;
+}
+
+.dot.good {
+  background: #4caf50;
+}
+
+.dot.ok {
+  background: #ffca28;
+  color: #333;
+}
+
+.dot.bad {
+  background: #e53935;
+}
+
+
+.tip-card {
+  margin-top: 28px;
+  background: #eef3ff;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.tip-card.subtle {
+  background: #f5f9ff;
+}
+
+
+.desktop-adherence {
+  max-width: 1400px;
+  margin: 50px auto 0;
+  padding: 0 120px 120px;
+}
+
+.desktop-header {
+  margin-bottom: 48px;
+}
+
+.desktop-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+}
+
+
+.mobile-adherence {
+  padding: 0 20px 120px;
+}
+
+@media (max-width: 767px) {
+  .adherence-page {
+    padding-top: 32px;
+  }
+}
+
+.watch-adherence {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.watch-score {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.watch-week {
+  display: flex;
+  gap: 6px;
+}
+
+.watch-week .dot {
+  width: 34px;
+  height: 34px;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+
+.today-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.today-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.today-number {
+  width: 24px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.today-bar-track {
+  flex: 1;
+  height: 14px;
+  background: #eef2f6;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.today-bar {
+  height: 100%;
+  border-radius: 7px;
+}
+
+.today-bar.good {
+  background: #4caf50;
+}
+
+.today-bar.ok {
+  background: #ff9800;
+}
+
+.today-bar.bad {
+  background: #e53935;
+}
+
+.today-label {
+  width: 70px;
+  font-size: 0.9rem;
+}
+
+.today-total {
+  margin-top: 8px;
+  font-weight: 600;
+}
+.desktop-adherence {
+  max-height: calc(100vh - 120px); 
+  overflow-y: auto;
+  padding-bottom: 80px; 
+}
+.desktop-adherence .stat-card {
+  min-height: 110px;
+  padding: 20px 16px;
+  border-radius: 20px;
+}
+
+.desktop-adherence .stat-number {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.desktop-adherence .stat-label {
+  font-size: 0.95rem;
+}
