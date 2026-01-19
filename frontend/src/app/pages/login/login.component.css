@@ -1,0 +1,185 @@
+
+
+* {
+  box-sizing: border-box;
+}
+
+input, button {
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+
+
+.watch-home {
+  width: 100vw;
+  height: 100vh;
+  padding: 12px;
+  background: #f4f8fb;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.watch-home h1 {
+  font-size: 16px;
+  text-align: center;
+  color: #1f3b4d;
+  margin-bottom: 6px;
+}
+
+.watch-home input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.watch-home button {
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  background: #3fa9b5;
+  color: #fff;
+}
+
+
+.phone-login {
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #e7f5f3, #f4f8fb);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-login .login-card {
+  width: 100%;
+  max-width: 100%;
+  padding: 36px 22px;
+
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 80, 120, 0.14);
+}
+
+
+
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e7f5f3, #f4f8fb);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 580px;        
+  padding: 40px 34px;     
+
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 80, 120, 0.12);
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .login-card {
+    max-width: 920px;
+    padding: 52px 48px;   
+  }
+}
+
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #1f3b4d;
+}
+
+.header p {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #6b8a99;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #3a5f73;
+}
+
+.field input {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+
+  border-radius: 10px;
+  border: 1px solid #cfe3ea;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #3fa9b5;
+  box-shadow: 0 0 0 2px rgba(63, 169, 181, 0.15);
+}
+
+button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  border-radius: 14px;
+  border: none;
+  background: #3fa9b5;
+  color: #fff;
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover:not(:disabled) {
+  background: #3496a2;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background: #b7d9df;
+  cursor: not-allowed;
+}
+
+.footer {
+  margin-top: 28px;
+  font-size: 13px;
+  color: #7a9aa8;
+  text-align: center;
+  line-height: 1.4;
+}
+

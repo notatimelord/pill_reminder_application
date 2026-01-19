@@ -1,0 +1,245 @@
+<div class="schedule-page" [class.watch]="isWatch">
+
+<div class="date-header">
+  <button class="universal-btn"
+          (click)="goPrevDay()">
+    ‹
+  </button>
+
+  <div class="date-label">
+    {{ dateLabel }}
+  </div>
+
+  <button class="universal-btn"
+          (click)="goNextDay()">
+    ›
+  </button>
+</div>
+
+<div class="popup-overlay" *ngIf="showEarlyWarning">
+<div class="warning-popup"
+     (click)="noop($event)"
+     [ngClass]="{ compact: isMobile, watch: isWatch }">
+
+
+    <img src="assets/icons/warning.png" class="warning-icon" />
+    <h2 class="warning-title">Take it earlier?</h2>
+    <p class="warning-text">
+      This dose is not due yet. Are you sure you want to take it early?
+    </p>
+
+    <button class="warning-primary"
+            (click)="confirmEarly(); $event.stopPropagation()">
+      Yes, I’ll take it now
+    </button>
+
+    <button class="warning-secondary"
+            (click)="cancelEarly(); $event.stopPropagation()">
+      Cancel
+    </button>
+  </div>
+</div>
+
+
+<div class="popup-overlay" *ngIf="showUndoWarning">
+  <div class="warning-popup"
+       (click)="noop($event)"
+       [ngClass]="{ compact: isMobile || isWatch }">
+
+    <img src="assets/icons/warning.png" class="warning-icon" />
+    <h2 class="warning-title">Undo this dose?</h2>
+    <p class="warning-text">
+      Are you sure you want to mark this dose as not taken?
+    </p>
+
+    <button class="warning-primary"
+            (click)="confirmUndo(); $event.stopPropagation()">
+      Yes, undo
+    </button>
+
+    <button class="warning-secondary"
+            (click)="cancelUndo(); $event.stopPropagation()">
+      Cancel
+    </button>
+  </div>
+</div>
+
+
+
+<div *ngIf="openedMed" class="modal-overlay" (click)="openedMed = null">
+  <div class="universal-modal"
+       (click)="noop($event)"
+       [ngClass]="{ compact: isMobile, watch: isWatch }">
+
+    <img *ngIf="openedMed.image_url"
+         [src]="openedMed.image_url"
+         class="modal-med-image"/>
+
+    <h2 class="modal-med-title">{{ openedMed.name }}</h2>
+
+    <p class="modal-med-dosage" *ngIf="openedMed.dosage">
+      {{ openedMed.dosage }}
+    </p>
+
+    <p *ngIf="openedMed.taken && openedMed.takenStatus === 'delayed'"
+       class="taken-text delayed">
+      ⚠ Taken late at {{ openedMed.time }}
+    </p>
+
+    <p *ngIf="openedMed.taken && openedMed.takenStatus === 'on-time'"
+       class="taken-text ontime">
+      ✔ Taken at {{ openedMed.time }}
+    </p>
+
+
+    <p *ngIf="!openedMed.taken"
+       class="due-text"
+       [ngClass]="{ late: openedMed.in === 'Now' }">
+      {{ openedMed.displayDueText }}
+    </p>
+
+    <p *ngIf="openedMed.tip" class="modal-med-tip">
+      💡 {{ openedMed.tip }}
+    </p>
+
+<button *ngIf="!openedMed.taken"
+        class="modal-btn primary"
+        [disabled]="!isTodaySelected()"
+        (click)="take(openedMed)">
+  {{ openedMed.displayButton }}
+</button>
+
+<button *ngIf="openedMed.taken"
+        class="modal-btn undo"
+        [disabled]="!isTodaySelected()"
+        (click)="triggerUndo(openedMed); $event.stopPropagation()">
+  Undo
+</button>
+
+
+    <button class="modal-btn close"
+            (click)="openedMed = null; $event.stopPropagation()">
+      Close
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isWatch" class="compact-list">
+  <div class="watch-med-card"
+       *ngFor="let med of meds"
+       (click)="openMed(med)"
+       [ngClass]="{
+         'taken-watch': med.taken && med.takenStatus === 'on-time',
+         'late-watch': med.taken && med.takenStatus === 'delayed',
+         'upcoming-watch': !med.taken
+       }">
+
+    <p class="watch-med-name">{{ med.name }}</p>
+
+    <p class="watch-med-sub">
+      <ng-container [ngSwitch]="true">
+
+        <span *ngSwitchCase="med.takenStatus === 'delayed'">
+          ⚠ Taken late at {{ med.time }}
+        </span>
+
+        <span *ngSwitchCase="med.takenStatus === 'on-time'">
+          ✔ Taken at {{ med.time }}
+        </span>
+
+        <span *ngSwitchDefault>
+          Due at {{ med.scheduledTime }}
+        </span>
+
+      </ng-container>
+    </p>
+  </div>
+</div>
+
+
+
+<div *ngIf="isMobile && !isWatch" class="mobile-schedule">
+  <div class="med-card"
+       *ngFor="let med of meds"
+       (click)="openMed(med)"
+       [ngClass]="{
+         delayed: med.takenStatus === 'delayed',
+         ontime: med.takenStatus === 'on-time'
+       }">
+
+    <div class="med-info">
+      <p class="med-name">{{ med.name }}</p>
+
+      <p class="med-sub" *ngIf="!med.taken">
+        {{ med.displayDueText }}
+      </p>
+
+      <p class="med-sub delayed" *ngIf="med.takenStatus === 'delayed'">
+        ⚠ Taken late at {{ med.time }}
+      </p>
+
+      <p class="med-sub ontime" *ngIf="med.takenStatus === 'on-time'">
+        ✔ Taken at {{ med.time }}
+      </p>
+    </div>
+
+<button class="med-btn"
+        [disabled]="!isTodaySelected()"
+        [ngClass]="{
+          orange: !med.taken,
+          red: med.taken
+        }">
+  {{ med.displayButton }}
+</button>
+
+  </div>
+</div>
+
+
+<div *ngIf="!isMobile && !isWatch" class="desktop-schedule">
+
+  <div class="desktop-med-card"
+       *ngFor="let med of meds"
+       [ngClass]="{
+         delayed: med.takenStatus === 'delayed',
+         ontime: med.takenStatus === 'on-time'
+       }">
+
+    <div class="desktop-med-info">
+      <h3>{{ med.name }}</h3>
+
+
+      <p *ngIf="!med.taken">
+        Scheduled at {{ med.scheduledTime }}
+      </p>
+
+
+      <p *ngIf="med.takenStatus === 'delayed'"
+         class="delayed">
+        ⚠ Taken late at {{ med.time }}
+      </p>
+
+
+      <p *ngIf="med.takenStatus === 'on-time'"
+         class="ontime">
+        ✔ Taken at {{ med.time }}
+      </p>
+
+    </div>
+
+    <div>
+      <button *ngIf="!med.taken"
+              class="desktop-btn primary"
+              (click)="openMed(med)">
+        Take Medicine
+      </button>
+
+      <button *ngIf="med.taken"
+              class="desktop-btn gray"
+              (click)="triggerUndo(med)">
+        Didn't take it
+      </button>
+    </div>
+  </div>
+</div>
+</div>

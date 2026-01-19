@@ -1,0 +1,118 @@
+
+
+<div *ngIf="isWatch" class="watch-home">
+  <div class="watch-card" (click)="goToMedication()">
+    <p class="badge">Upcoming medication</p>
+
+    <div class="digits">
+      <span>{{ countdownHours }}</span>
+      <span class="sep">:</span>
+      <span>{{ countdownMinutes }}</span>
+      <span class="sep">:</span>
+      <span>{{ countdownSeconds }}</span>
+    </div>
+
+    <img [src]="nextMedImage" class="pill-img watch" />
+
+    <p class="med-label watch">
+      {{ nextMedName }} — {{ nextMedDosage }}
+    </p>
+  </div>
+
+  </div>
+
+
+<div *ngIf="isMobile && !isWatch" class="mobile-home">
+
+  <div class="tip-card">
+    <h4>💡 Tip of the day</h4>
+    <p>{{ nextMedTip }}</p>
+  </div>
+
+  <div class="timer-card">
+    <p class="badge">Upcoming medication</p>
+    
+
+    <div class="digits">
+      <span>{{ countdownHours }}</span>
+      <span class="sep">:</span>
+      <span>{{ countdownMinutes }}</span>
+      <span class="sep">:</span>
+      <span>{{ countdownSeconds }}</span>
+    </div>
+
+    <img [src]="nextMedImage" class="pill-img" />
+
+    <p class="med-label">
+      {{ nextMedName }} — {{ nextMedDosage }}
+    </p>
+  </div>
+
+</div>
+
+<div *ngIf="!isMobile && !isWatch" class="desktop-home">
+  <div class="desktop-bg"></div>
+
+  <div class="desktop-layout">
+
+    <div class="desktop-main">
+      <div class="desktop-card main-card">
+        <h3>Upcoming medication</h3>
+
+        <div class="digits big">
+          {{ countdownHours }} : {{ countdownMinutes }} : {{ countdownSeconds }}
+        </div>
+
+        <img [src]="nextMedImage" class="pill-img large" />
+
+        <p class="med-label">
+          {{ nextMedName }} — {{ nextMedDosage }}
+        </p>
+
+        <div class="tip-card large">
+          <strong>Tip</strong>
+          <p>{{ nextMedTip }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="desktop-side">
+<div class="side-card profile-card">
+
+  <div class="profile-header vertical">
+    <img
+      class="avatar large"
+      [src]="avatarUrl"
+      alt="Profile avatar"
+    />
+
+    <div class="profile-info centered">
+      <h4>
+        {{ user?.firstName }} {{ user?.lastName }}
+      </h4>
+
+      <p class="age" *ngIf="user?.age">
+        Age {{ user?.age }}
+      </p>
+
+      <p class="condition" *ngIf="user?.condition">
+        {{ user?.condition }}
+      </p>
+    </div>
+  </div>
+
+  <div class="profile-message">
+    <strong>{{ greeting }}</strong>
+    <p>
+      We’ll remind you when it’s time for your next medication.
+    </p>
+  </div>
+
+  <div class="profile-time">
+    {{ now | date:'EEEE, MMM d · HH:mm' }}
+  </div>
+
+</div>
+</div>
+
+</div>
