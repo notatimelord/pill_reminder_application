@@ -42,5 +42,3 @@ The application helps users remember, track, and manage their daily medication r
 
 ---
 
-## 🗂 Project Structure
-
