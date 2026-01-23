@@ -1,41 +1,38 @@
 <div class="adherence-page">
   <div *ngIf="isWatch" class="watch-adherence">
-
     <div class="watch-score">
-      {{ taken }}/{{ weekly[weekly.length-1].total }}
+      {{ taken + late }}/{{ weekly[weekly.length-1].total }}
     </div>
 
     <div class="watch-week">
       <div class="week-day" *ngFor="let d of weekly">
         <span class="dot" [ngClass]="d.state">
-          {{ d.taken }}/{{ d.total }}
+          {{ d.taken + d.late }}/{{ d.total }}
         </span>
         <span class="day-label">{{ d.day }}</span>
       </div>
     </div>
-
   </div>
 
   <div *ngIf="isMobile && !isWatch" class="mobile-adherence">
-
-    <div class="hero-card">>
+    <div class="hero-card">
       <span class="hero-text">{{ statusText }}</span>
     </div>
 
     <div class="stats-row">
       <div class="stat-card good">
         <div class="stat-number">{{ taken }}</div>
-        <div class="stat-label">Taken</div>
+        <div class="stat-label">On time</div>
+      </div>
+
+      <div class="stat-card ok">
+        <div class="stat-number">{{ late }}</div>
+        <div class="stat-label">Taken late</div>
       </div>
 
       <div class="stat-card bad">
         <div class="stat-number">{{ missed }}</div>
         <div class="stat-label">Missed</div>
-      </div>
-
-      <div class="stat-card ok">
-        <div class="stat-number">{{ late }}</div>
-        <div class="stat-label">Taken Late</div>
       </div>
     </div>
 
@@ -45,7 +42,7 @@
       <div class="week-days">
         <div class="week-day" *ngFor="let d of weekly">
           <span class="dot" [ngClass]="d.state">
-            {{ d.taken }}/{{ d.total }}
+            {{ d.taken + d.late }}/{{ d.total }}
           </span>
           <span class="day-label">{{ d.day }}</span>
         </div>
@@ -54,24 +51,21 @@
       <h3>Today</h3>
 
       <div *ngIf="weekly.length" class="today-rows">
-<div class="today-row">
-  <span class="today-number">
-    {{ weekly[weekly.length-1].taken }}
-  </span>
-
-  <div class="today-bar-track">
-    <div
-      class="today-bar good"
-      [style.width.%]="
-        (weekly[weekly.length-1].taken
-        / weekly[weekly.length-1].total) * 100
-      ">
-    </div>
-  </div>
-
-  <span class="today-label">On time</span>
-</div>
-
+        <div class="today-row">
+          <span class="today-number">
+            {{ weekly[weekly.length-1].taken }}
+          </span>
+          <div class="today-bar-track">
+            <div
+              class="today-bar good"
+              [style.width.%]="
+                (weekly[weekly.length-1].taken /
+                weekly[weekly.length-1].total) * 100
+              ">
+            </div>
+          </div>
+          <span class="today-label">On time</span>
+        </div>
 
         <div class="today-row">
           <span class="today-number">
@@ -81,8 +75,8 @@
             <div
               class="today-bar ok"
               [style.width.%]="
-                (weekly[weekly.length-1].late
-                / weekly[weekly.length-1].total) * 100
+                (weekly[weekly.length-1].late /
+                weekly[weekly.length-1].total) * 100
               ">
             </div>
           </div>
@@ -97,8 +91,8 @@
             <div
               class="today-bar bad"
               [style.width.%]="
-                (weekly[weekly.length-1].missed
-                / weekly[weekly.length-1].total) * 100
+                (weekly[weekly.length-1].missed /
+                weekly[weekly.length-1].total) * 100
               ">
             </div>
           </div>
@@ -106,22 +100,18 @@
         </div>
 
         <div class="today-total">
-          {{ weekly[weekly.length-1].taken }}/{{ weekly[weekly.length-1].total }} taken today
+          {{ weekly[weekly.length-1].taken + weekly[weekly.length-1].late }}
+          /{{ weekly[weekly.length-1].total }} taken today
         </div>
-
       </div>
-
     </div>
 
     <div class="tip-card">
       💡 {{ tip }}
     </div>
-
   </div>
 
-
   <div *ngIf="!isMobile && !isWatch" class="desktop-adherence">
-
     <div class="desktop-header">
       <div class="hero-card wide">
         <span class="hero-text">{{ statusText }}</span>
@@ -129,21 +119,20 @@
     </div>
 
     <div class="desktop-grid">
-
       <div class="stats-column">
         <div class="stat-card good large">
           <div class="stat-number">{{ taken }}</div>
-          <div class="stat-label">Taken</div>
+          <div class="stat-label">On time</div>
+        </div>
+
+        <div class="stat-card ok large">
+          <div class="stat-number">{{ late }}</div>
+          <div class="stat-label">Taken late</div>
         </div>
 
         <div class="stat-card bad large">
           <div class="stat-number">{{ missed }}</div>
           <div class="stat-label">Missed</div>
-        </div>
-
-        <div class="stat-card ok large">
-          <div class="stat-number">{{ late }}</div>
-          <div class="stat-label">Taken Late</div>
         </div>
       </div>
 
@@ -153,80 +142,69 @@
         <div class="week-days">
           <div class="week-day" *ngFor="let d of weekly">
             <span class="dot" [ngClass]="d.state">
-              {{ d.taken }}/{{ d.total }}
+              {{ d.taken + d.late }}/{{ d.total }}
             </span>
             <span class="day-label">{{ d.day }}</span>
           </div>
         </div>
 
-<h3>Today</h3>
+        <h3>Today</h3>
 
-<div *ngIf="weekly.length" class="today-rows large">
-<div class="today-row">
-  <span class="today-number">
-    {{ weekly[weekly.length-1].taken }}
-  </span>
+        <div *ngIf="weekly.length" class="today-rows large">
+          <div class="today-row">
+            <span class="today-number">
+              {{ weekly[weekly.length-1].taken }}
+            </span>
+            <div class="today-bar-track">
+              <div
+                class="today-bar good"
+                [style.width.%]="
+                  (weekly[weekly.length-1].taken /
+                  weekly[weekly.length-1].total) * 100
+                ">
+              </div>
+            </div>
+            <span class="today-label">On time</span>
+          </div>
 
-  <div class="today-bar-track">
-    <div
-      class="today-bar good"
-      [style.width.%]="
-        (weekly[weekly.length-1].taken
-        / weekly[weekly.length-1].total) * 100
-      ">
-    </div>
-  </div>
+          <div class="today-row">
+            <span class="today-number">
+              {{ weekly[weekly.length-1].late }}
+            </span>
+            <div class="today-bar-track">
+              <div
+                class="today-bar ok"
+                [style.width.%]="
+                  (weekly[weekly.length-1].late /
+                  weekly[weekly.length-1].total) * 100
+                ">
+              </div>
+            </div>
+            <span class="today-label">Late</span>
+          </div>
 
-  <span class="today-label">On time</span>
-</div>
+          <div class="today-row">
+            <span class="today-number">
+              {{ weekly[weekly.length-1].missed }}
+            </span>
+            <div class="today-bar-track">
+              <div
+                class="today-bar bad"
+                [style.width.%]="
+                  (weekly[weekly.length-1].missed /
+                  weekly[weekly.length-1].total) * 100
+                ">
+              </div>
+            </div>
+            <span class="today-label">Missed</span>
+          </div>
 
-
-  <div class="today-row">
-    <span class="today-number">
-      {{ weekly[weekly.length-1].late }}
-    </span>
-
-    <div class="today-bar-track">
-      <div
-        class="today-bar ok"
-        [style.width.%]="
-          (weekly[weekly.length-1].late
-          / weekly[weekly.length-1].total) * 100
-        ">
-      </div>
-    </div>
-
-    <span class="today-label">Late</span>
-  </div>
-
-  <div class="today-row">
-    <span class="today-number">
-      {{ weekly[weekly.length-1].missed }}
-    </span>
-
-    <div class="today-bar-track">
-      <div
-        class="today-bar bad"
-        [style.width.%]="
-          (weekly[weekly.length-1].missed
-          / weekly[weekly.length-1].total) * 100
-        ">
-      </div>
-    </div>
-
-    <span class="today-label">Missed</span>
-  </div>
-
-    <div class="today-total">
-      {{ weekly[weekly.length-1].taken }}/{{ weekly[weekly.length-1].total }} taken today
-    </div>
-
+          <div class="today-total">
+            {{ weekly[weekly.length-1].taken + weekly[weekly.length-1].late }}
+            /{{ weekly[weekly.length-1].total }} taken today
+          </div>
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
