@@ -11,9 +11,19 @@ type DailyAdherence = {
 };
 
 function toAthensDate(dateStr: string, timeStr: string) {
-  return new Date(
-    `${dateStr}T${timeStr}:00+02:00`
-  );
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const [hour, minute] = timeStr.split(':').map(Number);
+
+  const baseUtc = new Date(Date.UTC(year, month - 1, day, hour, minute));
+
+  const offsetMinutes =
+    -new Date(
+      baseUtc.toLocaleString('en-US', {
+        timeZone: 'Europe/Athens'
+      })
+    ).getTimezoneOffset();
+
+  return new Date(baseUtc.getTime() + offsetMinutes * 60000);
 }
 
 export async function getAdherence(
@@ -21,12 +31,15 @@ export async function getAdherence(
   days: number
 ) {
   const dates: string[] = [];
+
+  const todayAthens = new Date(
+    new Date().toLocaleString('en-US', {
+      timeZone: 'Europe/Athens'
+    })
+  );
+
   for (let i = days - 1; i >= 0; i--) {
-    const d = new Date(
-      new Date().toLocaleString('en-US', {
-        timeZone: 'Europe/Athens'
-      })
-    );
+    const d = new Date(todayAthens);
     d.setDate(d.getDate() - i);
     dates.push(d.toISOString().slice(0, 10));
   }
@@ -36,12 +49,7 @@ export async function getAdherence(
   let totalMissed = 0;
 
   const weekly: DailyAdherence[] = [];
-
-  const nowAthens = new Date(
-    new Date().toLocaleString('en-US', {
-      timeZone: 'Europe/Athens'
-    })
-  );
+  const now = new Date();
 
   for (const date of dates) {
     const logs = await MedicationLog.aggregate([
@@ -63,35 +71,31 @@ export async function getAdherence(
     let missed = 0;
 
     for (const log of logs) {
-      if (log.taken_at) {
-        const scheduled = toAthensDate(
-          log.date,
-          log.scheduled_time
-        );
-
-        const takenAt = new Date(
-          new Date(log.taken_at).toLocaleString('en-US', {
-            timeZone: 'Europe/Athens'
-          })
-        );
-
-        const diffMinutes =
-          (takenAt.getTime() - scheduled.getTime()) / 60000;
-
-        if (diffMinutes > 0) {
-          late++;
-        } else {
-          onTime++;
-        }
-
-        continue;
-      }
       const scheduled = toAthensDate(
         log.date,
         log.scheduled_time
       );
 
-      if (nowAthens > scheduled) {
+      if (log.taken_at) {
+        const takenAt = new Date(
+  new Date(log.taken_at).toLocaleString('en-US', {
+    timeZone: 'Europe/Athens'
+  })
+);
+
+        const diffMinutes =
+  (takenAt.getTime() - scheduled.getTime()) / 60000;
+
+if (diffMinutes > 10) {
+  late++;
+} else {
+  onTime++;
+}
+
+        continue;
+      }
+
+      if (now > scheduled) {
         missed++;
       }
     }
@@ -111,16 +115,18 @@ export async function getAdherence(
       else if (ratio >= 0.5) state = 'ok';
     }
 
+    const day = new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone: 'Europe/Athens'
+      })
+    ).toLocaleDateString('en-GB', {
+      weekday: 'short'
+    });
+
     weekly.push({
       date,
-      day: new Date(
-        new Date(date).toLocaleString('en-US', {
-          timeZone: 'Europe/Athens'
-        })
-      ).toLocaleDateString('en-GB', {
-        weekday: 'short'
-      }),
-      taken: onTime + late,
+      day,
+      taken: onTime,
       late,
       missed,
       total,
@@ -129,7 +135,7 @@ export async function getAdherence(
   }
 
   return {
-    taken: totalOnTime + totalLate,
+    taken: totalOnTime,
     late: totalLate,
     missed: totalMissed,
     weekly
