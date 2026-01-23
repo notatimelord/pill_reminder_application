@@ -54,21 +54,24 @@
       <h3>Today</h3>
 
       <div *ngIf="weekly.length" class="today-rows">
-        <div class="today-row">
-          <span class="today-number">
-            {{ weekly[weekly.length-1].taken - weekly[weekly.length-1].late }}
-          </span>
-          <div class="today-bar-track">
-            <div
-              class="today-bar good"
-              [style.width.%]="
-                ((weekly[weekly.length-1].taken - weekly[weekly.length-1].late)
-                / weekly[weekly.length-1].total) * 100
-              ">
-            </div>
-          </div>
-          <span class="today-label">On time</span>
-        </div>
+<div class="today-row">
+  <span class="today-number">
+    {{ weekly[weekly.length-1].taken }}
+  </span>
+
+  <div class="today-bar-track">
+    <div
+      class="today-bar good"
+      [style.width.%]="
+        (weekly[weekly.length-1].taken
+        / weekly[weekly.length-1].total) * 100
+      ">
+    </div>
+  </div>
+
+  <span class="today-label">On time</span>
+</div>
+
 
         <div class="today-row">
           <span class="today-number">
@@ -159,24 +162,24 @@
 <h3>Today</h3>
 
 <div *ngIf="weekly.length" class="today-rows large">
+<div class="today-row">
+  <span class="today-number">
+    {{ weekly[weekly.length-1].taken }}
+  </span>
 
-  <div class="today-row">
-    <span class="today-number">
-      {{ weekly[weekly.length-1].taken - weekly[weekly.length-1].late }}
-    </span>
-
-    <div class="today-bar-track">
-      <div
-        class="today-bar good"
-        [style.width.%]="
-          ((weekly[weekly.length-1].taken - weekly[weekly.length-1].late)
-          / weekly[weekly.length-1].total) * 100
-        ">
-      </div>
+  <div class="today-bar-track">
+    <div
+      class="today-bar good"
+      [style.width.%]="
+        (weekly[weekly.length-1].taken
+        / weekly[weekly.length-1].total) * 100
+      ">
     </div>
-
-    <span class="today-label">On time</span>
   </div>
+
+  <span class="today-label">On time</span>
+</div>
+
 
   <div class="today-row">
     <span class="today-number">
@@ -214,11 +217,11 @@
     <span class="today-label">Missed</span>
   </div>
 
-  <div class="today-total">
-    {{ weekly[weekly.length-1].taken }}/{{ weekly[weekly.length-1].total }} taken today
-  </div>
+    <div class="today-total">
+      {{ weekly[weekly.length-1].taken }}/{{ weekly[weekly.length-1].total }} taken today
+    </div>
 
-</div>
+        </div>
 
       </div>
 
