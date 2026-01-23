@@ -493,21 +493,21 @@
   from { opacity: 0; transform: scale(0.85); }
   to { opacity: 1; transform: scale(1); }
 }
-
 @media (max-width: 768px) {
 
   .schedule-page {
-    padding-top: 20px; 
+    padding-top: 0;
   }
 
   .date-header {
-    top: 0;         
-    height: 60px;      
- }
+    top: 0;
+    height: 64px;
+  }
 
   .mobile-schedule {
-    padding: 12px 12px 120px;
- }
+    padding: 10px 14px 120px;
+    background: linear-gradient(#f8fbff, #eef4ff);
+  }
   .date-label {
     font-size: 18px;
   }
@@ -519,6 +519,7 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.14);
   }
 }
+
 .watch .universal-modal {
   width: 92%;
   max-width: 260px;
