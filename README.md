@@ -25,7 +25,6 @@ The application helps users remember, track, and manage their daily medication r
 - **Angular**
 - TypeScript
 - SCSS
-- Web Speech API (voice input & output)
 
 ### Backend
 - **Node.js**
@@ -37,7 +36,5 @@ The application helps users remember, track, and manage their daily medication r
 ### Infrastructure
 - Docker & Docker Compose
 - MongoDB (containerized)
-- Angular dev server (LAN enabled)
-
 ---
 
