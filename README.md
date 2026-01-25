@@ -16,7 +16,6 @@ The application helps users remember, track, and manage their daily medication r
   - Desktop
   - Mobile
   - Watch-style interface
-- **LAN-accessible (phone & PC on same network)**
 
 ---
 
