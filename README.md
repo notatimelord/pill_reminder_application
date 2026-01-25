@@ -1,7 +1,7 @@
 # Pill Reminder Application
 
 A full-stack **pill reminder and medication adherence platform** designed to run seamlessly on **desktop, mobile, and smartwatch-like interfaces**.  
-The application helps users remember, track, and manage their daily medication routines with alerts, adherence monitoring, and an AI-assisted chatbot.
+The application helps users remember, track, and manage their daily medication routines with alerts and adherence monitoring.
 
 ---
 
