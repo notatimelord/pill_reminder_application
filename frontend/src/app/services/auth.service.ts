@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-
+private baseUrl = 'http://localhost:8080/api/v1/auth';  // this will only work on local host on ur laptop/pc NOT on phone
 @Injectable({
   providedIn: 'root'
 })
@@ -34,5 +34,6 @@ login(surname: string, password: string) {
     localStorage.removeItem('user');
   }
 }
+
 
 
